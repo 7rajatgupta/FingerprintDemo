@@ -12,17 +12,19 @@ import javax.crypto.KeyGenerator;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String KEY_NAME = "example_key";   // Used to generate key
-    private FingerprintManager fingerprintManager;
-    private KeyguardManager keyguardManager;
-    private KeyStore keyStore;
-    private KeyGenerator keyGenerator;
-    private Cipher cipher;
-    private FingerprintManager.CryptoObject cryptoObject;
+    private static final String TAG_KEY_NAME = "example_key";   // Used to generate key
+    private FingerprintManager mFingerprintManager;
+    private KeyguardManager mKeyguardManager;
+    private KeyStore mKeyStore;
+    private KeyGenerator mKeyGenerator;
+    private Cipher mCipher;
+    private FingerprintManager.CryptoObject mCryptoObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide(); //hide the action bar
+
     }
 }
