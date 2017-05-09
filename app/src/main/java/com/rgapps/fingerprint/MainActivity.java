@@ -3,6 +3,7 @@ package com.rgapps.fingerprint;
 import android.app.KeyguardManager;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
+import android.security.keystore.KeyProperties;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,6 +45,26 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"No fingerprints enrolled",Toast.LENGTH_SHORT).show();
 
 
+
+
+    }
+
+    public void keyGenerator(){
+        try {
+            mKeyStore = KeyStore.getInstance("AndroidKeyStore");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            mKeyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+        }catch (Exception e){
+            //e.printStackTrace();
+        }
+        try {
+            mKeyStore = KeyStore.getInstance("AndroidKeyStore");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 }
