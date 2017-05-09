@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         keyGenerator();
         if(initCipher()) {
             mCryptoObject = new FingerprintManager.CryptoObject(mCipher);
-            FingerprintHandler helper = new FingerprintHandler(this);
-            helper.startAuth(fingerprintManager, cryptoObject);
+           // FingerprintHandler helper = new FingerprintHandler(this);
+            //helper.startAuth(fingerprintManager, cryptoObject);
         }
 
 
