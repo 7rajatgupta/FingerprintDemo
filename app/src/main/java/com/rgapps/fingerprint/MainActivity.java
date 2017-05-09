@@ -26,5 +26,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide(); //hide the action bar
 
+        //Getting the services up!
+        mKeyguardManager = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
+        mFingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
+
+
     }
 }
