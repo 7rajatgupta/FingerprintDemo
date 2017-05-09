@@ -17,5 +17,9 @@ public class Handler extends FingerprintManager.AuthenticationCallback {
         mAppContext = context;
 
     }
-    public void
+    public void beginAuthentication(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject){
+
+        mCancellationSignal = new CancellationSignal();
+
+    }
 }
