@@ -3,13 +3,19 @@ package com.rgapps.fingerprint;
 import android.app.KeyguardManager;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
+import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.cert.CertificateException;
 
 
 import javax.crypto.Cipher;
@@ -57,13 +63,17 @@ public class MainActivity extends AppCompatActivity {
         }
         try {
             mKeyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
-        }catch (Exception e){
+        }catch( NoSuchAlgorithmException | NoSuchProviderException e){
             //e.printStackTrace();
+            throw new RuntimeException("Cant get key generator instance", e);
         }
         try {
-            mKeyStore = KeyStore.getInstance("AndroidKeyStore");
-        }catch (Exception e){
-            e.printStackTrace();
+            mKeyStore.load(null);
+            mKeyGenerator.init(new KeyGenParameterSpec.Builder(TAG_KEY_NAME, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT).setBlockModes(KeyProperties.BLOCK_MODE_CBC).setUserAuthenticationRequired(true).setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7).build());
+        }catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException | CertificateException | IOException e){
+            //e.printStackTrace();
+            throw new RuntimeException(e);
+
         }
 
     }
