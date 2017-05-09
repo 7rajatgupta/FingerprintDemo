@@ -56,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         if(!mFingerprintManager.hasEnrolledFingerprints())                   //Check if any fingerprint is enrolled
             Toast.makeText(this,"No fingerprints enrolled",Toast.LENGTH_SHORT).show();
 
+        keyGenerator();
+        if(initCipher()) {
+            mCryptoObject = new FingerprintManager.CryptoObject(mCipher);
+            FingerprintHandler helper = new FingerprintHandler(this);
+            helper.startAuth(fingerprintManager, cryptoObject);
+        }
+
 
 
 
@@ -81,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
     }
-    public boolean cipherInit() {
+    public boolean initCipher() {
         try {
             mCipher = Cipher.getInstance(
                     KeyProperties.KEY_ALGORITHM_AES + "/"
