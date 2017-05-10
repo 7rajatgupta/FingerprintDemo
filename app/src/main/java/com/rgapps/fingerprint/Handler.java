@@ -1,6 +1,8 @@
 package com.rgapps.fingerprint;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
@@ -33,6 +35,32 @@ public class Handler extends FingerprintManager.AuthenticationCallback {
     @Override
     public void onAuthenticationError(int errMsgId, CharSequence errString) {
         Toast.makeText(mAppContext, errString, Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onAuthenticationHelp(int helpMsgId,
+                                     CharSequence helpString) {
+        Toast.makeText(appContext,
+                helpString,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAuthenticationFailed() {
+        Toast.makeText(appContext,
+                "Authentication failed.",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAuthenticationSucceeded(
+            FingerprintManager.AuthenticationResult result) {
+
+        Toast.makeText(appContext,
+                "Authentication succeeded.",
+                Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(appContext,SucceedActivity.class);
+        appContext.startActivity(i);
+        ((Activity)appContext).finish();       //Finish MainActivity
     }
 
 }
