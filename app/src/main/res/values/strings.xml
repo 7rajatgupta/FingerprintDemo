@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Fingerprint</string>
+    <string name="title_activity_succeed">SucceedActivity</string>
 </resources>
