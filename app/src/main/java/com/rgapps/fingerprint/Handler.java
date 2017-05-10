@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
 import android.support.v4.app.ActivityCompat;
+import android.widget.Toast;
 
 import java.util.jar.Manifest;
 
@@ -28,6 +29,10 @@ public class Handler extends FingerprintManager.AuthenticationCallback {
         if (ActivityCompat.checkSelfPermission(mAppContext, android.Manifest.permission.USE_FINGERPRINT)!= PackageManager.PERMISSION_GRANTED)
             return;
         manager.authenticate(cryptoObject, mCancellationSignal, 0, this, null);
+    }
+    @Override
+    public void onAuthenticationError(int errMsgId, CharSequence errString) {
+        Toast.makeText(mAppContext, errString, Toast.LENGTH_SHORT).show();
     }
 
 }
