@@ -1,8 +1,12 @@
 package com.rgapps.fingerprint;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
+import android.support.v4.app.ActivityCompat;
+
+import java.util.jar.Manifest;
 
 /**
  * Created by rajat on 9/5/17.
@@ -21,5 +25,9 @@ public class Handler extends FingerprintManager.AuthenticationCallback {
 
         mCancellationSignal = new CancellationSignal();
 
+        if (ActivityCompat.checkSelfPermission(mAppContext, android.Manifest.permission.USE_FINGERPRINT)!= PackageManager.PERMISSION_GRANTED)
+            return;
+        manager.authenticate(cryptoObject, mCancellationSignal, 0, this, null);
     }
+
 }
